@@ -32,6 +32,10 @@ class TestRoom < Minitest::Test
    assert_equal( 0, @hen_party.no_of_occupants)
  end
 
+ def test_enough_space
+   assert_equal(true, @hen_party.enough_space)
+ end
+
  def test_check_in
    @hen_party.check_in(@hen_guest)
 
@@ -42,7 +46,7 @@ class TestRoom < Minitest::Test
 
  def test_check_in_room_full
    result = @solo_room.check_in(@hen_guest)
-   assert_equal("No room at the inn for you", result)
+   assert_nil(result)
 
  end
 

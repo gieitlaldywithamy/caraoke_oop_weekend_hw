@@ -10,12 +10,11 @@ class Guest
   end
 
   def enough_money(price)
-    return true if @guest_money >= price
-    return false
+    return @guest_money >= price
   end
 
   def pay(price)
-    if enough_money(price) == true
+    if enough_money(price)
       @guest_money -= price
     else
       "You can't afford that"
@@ -30,4 +29,7 @@ class Guest
     end
   end
 
+  def pay_entry_free(entry_fee)
+    @guest_money -= entry_fee
+  end
 end

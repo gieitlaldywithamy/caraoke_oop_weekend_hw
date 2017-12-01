@@ -33,6 +33,10 @@ class TestGuest < Minitest::Test
     assert_equal(5, @guest1.guest_money)
   end
 
+  def test_guest_enough_money
+    assert_equal(true, @guest1.enough_money(@hen_party.entry))
+  end
+  
   def test_guest_favourite_song
     @family_room.add_song(@frozen)
     assert_equal("Woo", @guest2.favourite_song_in_playlist(@family_room))

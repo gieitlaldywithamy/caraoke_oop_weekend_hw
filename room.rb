@@ -1,13 +1,13 @@
 class Room
 
-  attr_reader :room_name, :playlist, :occupants
+  attr_reader :room_name, :playlist, :occupants, :entry
 
   def initialize(name, capacity, occupants=[])
     @room_name = name
     @capacity = capacity
     @occupants = occupants
     @playlist = []
-    @room_entry = 5
+    @entry = 5
   end
 
   def add_song(song)
@@ -18,6 +18,8 @@ class Room
     end
   end
 
+
+
   def no_of_occupants()
     return @occupants.length
   end
@@ -27,11 +29,11 @@ class Room
   end
 
   def check_in(guest)
-    return "No room at the inn for you" if !enough_space
-    return "No money, no entry" if guest.guest_money < @room_entry
-    if !@occupants.include?(guest)
+
+    if enough_space && guest.enough_money(@entry)
       @occupants.push(guest)
-      guest.guest_money -= @room_entry
+      guest.pay_entry_free(@entry)
+
     end
   end
 
