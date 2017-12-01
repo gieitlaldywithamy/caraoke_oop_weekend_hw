@@ -29,7 +29,10 @@ class Room
   def check_in(guest)
     return "No room at the inn for you" if !enough_space
     return "No money, no entry" if guest.guest_money < @room_entry
-    @occupants.push(guest) unless @occupants.include?(guest)
+    if !@occupants.include?(guest)
+      @occupants.push(guest)
+      guest.guest_money -= @room_entry
+    end
   end
 
   def check_out(guest)

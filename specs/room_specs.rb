@@ -37,6 +37,7 @@ class TestRoom < Minitest::Test
 
    assert_equal([@hen_guest], @hen_party.occupants)
    assert_equal(1, @hen_party.no_of_occupants)
+   assert_equal(0, @hen_guest.guest_money)
  end
 
  def test_check_in_room_full
