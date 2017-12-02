@@ -1,16 +1,16 @@
 class Guest
 
   attr_reader :guest_name
-  attr_accessor :guest_money
+  attr_accessor :wallet
 
   def initialize(guest_name, money = 5, fav_song = nil)
     @guest_name = guest_name
-    @guest_money = money
+    @wallet = money
     @favourite_song = fav_song
   end
 
-  def enough_money(price)
-    return @guest_money >= price
+  def can_afford(price)
+    return @wallet >= price
   end
 
   def pay(price)
@@ -26,6 +26,6 @@ class Guest
   end
 
   def pay_entry_free(entry_fee)
-    @guest_money -= entry_fee
+    @wallet -= entry_fee
   end
 end
