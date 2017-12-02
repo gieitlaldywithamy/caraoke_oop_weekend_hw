@@ -29,7 +29,7 @@ class TestRoom < Minitest::Test
   end
 
   def test_num_guests
-   assert_equal( 0, @hen_party.no_of_occupants)
+   assert_equal( 0, @hen_party.guest_count())
  end
 
  def test_enough_space
@@ -38,40 +38,32 @@ class TestRoom < Minitest::Test
 
  def test_check_in
    @hen_party.check_in(@hen_guest)
-
-   assert_equal([@hen_guest], @hen_party.occupants)
-   assert_equal(1, @hen_party.no_of_occupants)
+   assert_equal([@hen_guest], @hen_party.guests)
+   assert_equal(1, @hen_party.guest_count)
    assert_equal(0, @hen_guest.guest_money)
  end
 
  def test_check_in_room_full
    result = @solo_room.check_in(@hen_guest)
    assert_nil(result)
-
  end
 
  def test_check_out
    @hen_party.check_in(@hen_guest)
    @hen_party.check_out(@hen_guest)
-  assert_equal(0,@hen_party.no_of_occupants)
-  assert_equal([], @hen_party.occupants)
+   assert_equal(0,@hen_party.guest_count)
+   assert_equal([], @hen_party.guests)
  end
 
  def test_check_out
    @hen_party.check_in(@hen_guest)
    @hen_party.check_out(@hen_guest)
-  assert_equal(0,@hen_party.no_of_occupants)
-  assert_equal([], @hen_party.occupants)
+   assert_equal(0,@hen_party.guest_count)
+   assert_equal([], @hen_party.guests)
  end
 
  def test_check_out_error_handle
    assert_nil(@hen_party.check_out(@hen_guest))
  end
-
-
-
-
-
-
 
 end

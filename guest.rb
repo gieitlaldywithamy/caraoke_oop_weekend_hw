@@ -6,7 +6,7 @@ class Guest
   def initialize(guest_name, money=5, fav_song=nil)
     @guest_name = guest_name
     @guest_money = money
-    @fav_song = fav_song
+    @favourite_song = fav_song
   end
 
   def enough_money(price)
@@ -15,18 +15,14 @@ class Guest
 
   def pay(price)
     if enough_money(price)
-      @guest_money -= price
+      pay_entry_free(price)
     else
-      "You can't afford that"
+      return "You can't afford that"
     end
   end
 
   def favourite_song_in_playlist(room)
-    if room.playlist.include?(@fav_song)
-      return "Woo"
-    else
-      return room.playlist, @fav_song
-    end
+    return "Woo" if room.playlist.include?(@favourite_song)
   end
 
   def pay_entry_free(entry_fee)

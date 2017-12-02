@@ -19,10 +19,6 @@ class TestGuest < Minitest::Test
     @hen_party = Room.new("Hen Party", 6)
     @family_room = Room.new("Family", 10, @guests)
     @solo_room = Room.new("For 1 only", 1, [@lonely_business_man])
-
-
-
-
   end
 
   def test_guest_name
@@ -36,7 +32,9 @@ class TestGuest < Minitest::Test
   def test_guest_enough_money
     assert_equal(true, @guest1.enough_money(@hen_party.entry))
   end
+
   
+
   def test_guest_favourite_song
     @family_room.add_song(@frozen)
     assert_equal("Woo", @guest2.favourite_song_in_playlist(@family_room))
