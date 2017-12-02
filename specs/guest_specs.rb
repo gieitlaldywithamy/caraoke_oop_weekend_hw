@@ -14,9 +14,12 @@ class TestGuest < Minitest::Test
 
     @guest3 = Guest.new("King of the Styx")
     @guest4 = Guest.new("Mr i have worked so many hours this week, I have forgotten")
-    @guests = [@guest1, @guest2, @guest3]
 
-    @hen_party = Room.new("Hen Party", 6)
+    @guests = [@guest1, @guest2, @guest3]
+    @macklemore = Song.new({title: "Thrift Shop", artist: "Macklemore"})
+    @hanson = Song.new({title: "MMMBop", artist: "Hansen"})
+    @hen_playlist = [@macklemore, @hanson]
+    @hen_party = Room.new("Hen Party", 6, )
     @family_room = Room.new("Family", 10, @guests)
     @solo_room = Room.new("For 1 only", 1, [@lonely_business_man])
   end
@@ -33,11 +36,13 @@ class TestGuest < Minitest::Test
     assert_equal(true, @guest1.enough_money(@hen_party.entry))
   end
 
-  
+  def test_guest_enough_money_false
+    assert_equal(false, @guest1.enough_money(9))
+  end
 
   def test_guest_favourite_song
     @family_room.add_song(@frozen)
-    assert_equal("Woo", @guest2.favourite_song_in_playlist(@family_room))
+    assert_equal("Woo I love Let it go!", @guest2.favourite_song_in_playlist(@family_room))
   end
 
 end

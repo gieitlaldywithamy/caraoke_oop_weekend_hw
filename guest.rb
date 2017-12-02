@@ -3,7 +3,7 @@ class Guest
   attr_reader :guest_name
   attr_accessor :guest_money
 
-  def initialize(guest_name, money=5, fav_song=nil)
+  def initialize(guest_name, money = 5, fav_song = nil)
     @guest_name = guest_name
     @guest_money = money
     @favourite_song = fav_song
@@ -22,7 +22,7 @@ class Guest
   end
 
   def favourite_song_in_playlist(room)
-    return "Woo" if room.playlist.include?(@favourite_song)
+    return "Woo I love #{@favourite_song.title}!" if room.playlist.include?(@favourite_song)
   end
 
   def pay_entry_free(entry_fee)
