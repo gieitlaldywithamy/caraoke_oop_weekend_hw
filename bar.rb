@@ -1,5 +1,7 @@
+require('pry')
 class Bar
 
+  attr_reader :rooms
   attr_accessor :till
 
   def initialize(rooms)
@@ -26,7 +28,7 @@ class Bar
   end
 
   def group_check_in(group, room)
-    if room.capacity > group.length() && (group.map{|guest| guest.can_afford(room.entry)}.reduce(:&))
+    if room.capacity >= group.length() && (group.map{|guest| guest.can_afford(room.entry)}.reduce(:&))
       group.each{|guest| check_in(guest, room)}
     end
   end
@@ -34,5 +36,18 @@ class Bar
   def group_check_out(group, room)
     room.guests.delete_if{|guest| room.guests.include?(guest)}
   end
+
+  def find_most_profitable_room(group)
+    #this assumes everyone in the group can afford entry
+    #sort rooms by capacity
+    rooms_capacity_increasing = @rooms.sort_by{|room| room.capacity}
+
+    # binding.pry
+    return rooms_capacity_increasing.find{|room| room.capacity >= group.length() && (group.map{|guest| guest.can_afford(room.entry)}.reduce(:&))}
+
+  end
+
+
+
 
 end

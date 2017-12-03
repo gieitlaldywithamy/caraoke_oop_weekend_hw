@@ -26,4 +26,8 @@ class Room
     @capacity > @guests.length ? true : false
   end
 
+  def guest_names
+    return @guests.map{|guest|guest.guest_name}
+  end
+
 end

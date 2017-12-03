@@ -83,4 +83,8 @@ class TestBar< Minitest::Test
     @bar.group_check_out(@guests, @family_room)
     assert_equal([], @family_room.guests)
   end
+
+  def test_find_most_profitable_room
+    assert_equal(@double_room, @bar.find_most_profitable_room([@guest1, @guest2]))
+  end
 end
