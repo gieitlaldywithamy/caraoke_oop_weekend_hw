@@ -1,6 +1,6 @@
 class Room
 
-  attr_reader :room_name, :playlist, :guests, :entry
+  attr_reader :room_name, :playlist, :guests, :entry, :capacity
 
   def initialize(name, capacity, occupants=[])
     @room_name = name
@@ -26,22 +26,4 @@ class Room
     @capacity > @guests.length ? true : false
   end
 
-  def check_in(guest)
-    if enough_space && guest.can_afford(@entry)
-      @guests.push(guest)
-      guest.pay_entry_free(@entry)
-    else
-      return "Sorry, no entry"
-    end
-  end
-
-  def check_out(guest)
-    @guests.delete(guest) unless !@guests.include?(guest)
-  end
-
-  def group_check_in(group)
-    if @capacity > group.length() && (group.map{|guest| guest.can_afford(@entry)}.reduce(:&))
-      group.each{|guest| check_in(guest)}
-    end
-  end
 end

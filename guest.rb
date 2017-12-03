@@ -1,3 +1,5 @@
+require_relative('bar')
+
 class Guest
 
   attr_reader :guest_name

@@ -29,6 +29,8 @@ class TestRoom < Minitest::Test
 
     #songs
     @frozen = Song.new({title: "Let it go", artist: "Demi Lovato"})
+
+
   end
 
   def test_room_has_name
@@ -49,51 +51,6 @@ class TestRoom < Minitest::Test
    assert_equal(true, @hen_party.enough_space)
  end
 
- def test_check_in
-   @hen_party.check_in(@hen_guest)
-   assert_equal([@hen_guest], @hen_party.guests)
-   assert_equal(1, @hen_party.guest_count)
-   assert_equal(0, @hen_guest.wallet)
- end
 
- def test_check_in_room_full
-   result = @solo_room.check_in(@hen_guest)
-   assert_equal("Sorry, no entry", result)
- end
-
- def test_check_out
-   @hen_party.check_in(@hen_guest)
-   @hen_party.check_out(@hen_guest)
-   assert_equal(0,@hen_party.guest_count)
-   assert_equal([], @hen_party.guests)
- end
-
- def test_check_out
-   @hen_party.check_in(@hen_guest)
-   @hen_party.check_out(@hen_guest)
-   assert_equal(0,@hen_party.guest_count)
-   assert_equal([], @hen_party.guests)
- end
-
- def test_check_out_error_handle
-   assert_nil(@hen_party.check_out(@hen_guest))
- end
-
- def test_group_check_in
-   @hen_party.group_check_in(@guests)
-   #checking in will reduce guest wallets
-   altered_guests = @guests.each{|guest| guest.wallet = 0}
-   assert_equal(altered_guests, @hen_party.guests)
- end
-
- def test_group_check_in_not_space
-   @double_room.group_check_in(@guests)
-   assert_equal([], @double_room.guests)
- end
-
- def test_group_entry_one_cant_afford
-   @hen_party.group_check_in(@guests_with_poor)
-   assert_equal([], @hen_party.guests)
- end
 
 end
