@@ -18,13 +18,35 @@ banner = "
 ░█─── ░█▄▄█ ░█▄▄▀ ░█▄▄█ ░█──░█ ░█▀▄─ ░█▀▀▀ 　 ─░█░█─ ─█─
 ░█▄▄█ ░█─░█ ░█─░█ ░█─░█ ░█▄▄▄█ ░█─░█ ░█▄▄▄ 　 ──▀▄▀─ ▄█▄
 "
-def print_rooms()
-  format = '%-25s %-15s %-15s %-15s %-15s'
-  puts format % ['Name','Guests', 'Capacity', 'Entry', 'Playlist']
-  @bar.rooms.each do |room|
-  puts format % [room.room_name, room.guest_names(), room.capacity, room.entry, room.playlist ]
-end
-end
+  def print_rooms()
+    format = '%-25s %-15s %-15s %-15s %-15s'
+    puts format % ['Name','Guests', 'Capacity', 'Entry', 'Playlist']
+    @bar.rooms.each do |room|
+      puts format % [room.room_name, room.guest_names(), room.capacity, room.entry, room.playlist ]
+    end
+  end
+
+  def check_in_new_guests()
+    puts "How many are in the party?"
+    number_of_customers = gets.chomp.to_i()
+    i = 1
+
+    customer_group = []
+    while i <= number_of_customers
+      puts "Name #{i} please..."
+      name = gets.chomp
+      customer_group.push(Guest.new(name))
+      i += 1
+    end
+
+    suggested_room = @bar.find_most_profitable_room(customer_group)
+    puts "Booking group into #{suggested_room.room_name}"
+    if customer_group.length > 1
+      @bar.group_check_in(customer_group, suggested_room)
+    else
+      @bar.check_in(customer_group[0], suggested_room)
+    end
+  end
 
 
 puts banner
@@ -43,25 +65,7 @@ while user_input != "quit"
   when "2"
       p "Till: £#{@bar.till}"
   when "3"
-      puts "How many are in the party?"
-      number_of_customers = gets.chomp.to_i()
-      i = 1
-
-      customer_group = []
-      while i <= number_of_customers
-        puts "Name #{i} please..."
-        name = gets.chomp
-        customer_group.push(Guest.new(name))
-        i += 1
-      end
-
-      suggested_room = @bar.find_most_profitable_room(customer_group)
-      puts "Booking group into #{suggested_room.room_name}"
-      if customer_group.length > 1
-        @bar.group_check_in(customer_group, suggested_room)
-      else
-        @bar.check_in(customer_group[0], suggested_room)
-      end
+      check_in_new_guests()
 
   end
 
